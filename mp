@@ -56,9 +56,9 @@ shift
 
 echo $CMD
 
-if [[ "$CMD" == "deploy-reval" ]]; then
+if [[ "$CMD" == "deploy-web" ]]; then
   ensure_remote "Deploy fontend cannot be run on the local environment. Use (for example) \"mp -e staging "$CMD"\"."
-	APP_PATH=$ROOT_PATH/reval
+	APP_PATH=$ROOT_PATH/web
   cd $APP_PATH
 
   NODE_ENV="$ENV" yarn build || exit
@@ -106,9 +106,9 @@ elif [[ "$CMD" == "install" ]]; then
   RUN='cd $ROOT_PATH;
        git submodule init;
        git submodule update;
-       git submodule foreach git checkout origin master;
+       git submodule foreach git checkout master;
 			 ./mp symlink;
-			 cd $ROOT_PATH/reval && yarn'
+			 cd $ROOT_PATH/web && yarn'
 elif [[ "$CMD" == "psql" ]]; then
 	COLUMNS=${COLUMNS:-''};
 	RUN='docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "COLUMNS=\"'$COLUMNS'\" psql -U science_feedback science_feedback $*"'
@@ -122,14 +122,14 @@ elif [[ "$CMD" == "restart-backend" ]]; then
       cd $ROOT_PATH && docker-compose up --force-recreate'
 elif [[ "$CMD" == "shared" ]]; then
 	RUN='cd $ROOT_PATH/shared && yarn run compile;
-			 cd $ROOT_PATH/reval/node_modules && ln -mp ../../shared pass-culture-shared;
+			 cd $ROOT_PATH/web/node_modules && ln -mp ../../shared pass-culture-shared;
 			'
 elif [[ "$CMD" == "start-backend" ]]; then
   RUN='cd $ROOT_PATH && docker-compose up'
-elif [[ "$CMD" == "start-reval" ]]; then
-	RUN='cd $ROOT_PATH/reval && yarn start'
+elif [[ "$CMD" == "start-web" ]]; then
+	RUN='cd $ROOT_PATH/web && yarn start'
 elif [[ "$CMD" == "symlink" ]]; then
-  RUN='cd /usr/local/bin && sudo ln -mp '"$(pwd)"'/mp mp && chmod +x mp && chmod +x '"$(pwd)"'/mp'
+  RUN='cd /usr/local/bin && sudo ln -sf '"$(pwd)"'/mp mp && chmod +x mp && chmod +x '"$(pwd)"'/mp'
 elif [[ "$CMD" == "reset-all-db" ]]; then
   RUN='docker exec -it `docker ps | grep flask | cut -d" " -f 1` bash -c "rm -rf /opt/services/flaskapp/src/static/object_store_data/*";
        docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "psql -U science_feedback science_feedback -c \"TRUNCATE \\\"user\\\",review,article,role RESTART IDENTITY CASCADE;\""'
