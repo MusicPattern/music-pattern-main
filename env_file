@@ -1,4 +1,4 @@
 POSTGRES_USER=music_pattern
 POSTGRES_PASSWORD=mp
 POSTGRES_DB=music_pattern
-DATABASE_URL=postgresql://music_pattern:sf@postgres/music_pattern
+DATABASE_URL=postgresql://music_pattern:mp@postgres/music_pattern
