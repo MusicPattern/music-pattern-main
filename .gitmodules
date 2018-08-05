@@ -1,6 +1,6 @@
 [submodule "flask"]
 	path = flask
 	url = git@github.com:music-pattern/music-pattern-flask.git
-	[submodule "web"]
-		path = web
-		url = git@github.com:music-pattern/music-pattern-web.git
+[submodule "web"]
+	path = web
+	url = git@github.com:music-pattern/music-pattern-web.git
