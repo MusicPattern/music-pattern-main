@@ -111,7 +111,7 @@ elif [[ "$CMD" == "install" ]]; then
 			 cd $ROOT_PATH/web && yarn'
 elif [[ "$CMD" == "psql" ]]; then
 	COLUMNS=${COLUMNS:-''};
-	RUN='docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "COLUMNS=\"'$COLUMNS'\" psql -U science_feedback science_feedback $*"'
+	RUN='docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "COLUMNS=\"'$COLUMNS'\" psql -U music_pattern music_pattern $*"'
 elif [[ "$CMD" == "python" ]]; then
 	RUN='docker exec -it `docker ps | grep flask | cut -d" " -f 1` bash -c "cd /opt/services/flaskapp/src/ && PYTHONPATH=. python -i scripts/interact.py '"$CMD $*"'"'
 elif [[ "$CMD" == "rebuild-backend" ]]; then
@@ -132,7 +132,7 @@ elif [[ "$CMD" == "symlink" ]]; then
   RUN='cd /usr/local/bin && sudo ln -sf '"$(pwd)"'/mp mp && chmod +x mp && chmod +x '"$(pwd)"'/mp'
 elif [[ "$CMD" == "reset-all-db" ]]; then
   RUN='docker exec -it `docker ps | grep flask | cut -d" " -f 1` bash -c "rm -rf /opt/services/flaskapp/src/static/object_store_data/*";
-       docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "psql -U science_feedback science_feedback -c \"TRUNCATE \\\"user\\\",review,article,role RESTART IDENTITY CASCADE;\""'
+       docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "psql -U music_pattern music_pattern -c \"TRUNCATE \\\"user\\\",harmony,note,pitch,role,scale,scale_note RESTART IDENTITY CASCADE;\""'
 elif [[ "$CMD" == "reset-all-storage" ]]; then
 	RUN='sudo rm -rf $ROOT_PATH/flask/static/object_store_data;'
 elif [[ "$CMD" == "test-backend" ]]; then
