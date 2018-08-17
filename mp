@@ -132,7 +132,7 @@ elif [[ "$CMD" == "symlink" ]]; then
   RUN='cd /usr/local/bin && sudo ln -sf '"$(pwd)"'/mp mp && chmod +x mp && chmod +x '"$(pwd)"'/mp'
 elif [[ "$CMD" == "reset-all-db" ]]; then
   RUN='docker exec -it `docker ps | grep flask | cut -d" " -f 1` bash -c "rm -rf /opt/services/flaskapp/src/static/object_store_data/*";
-       docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "psql -U music_pattern music_pattern -c \"TRUNCATE \\\"user\\\",chord,chord_note,harmony,melody,note,pitch,rhythm,role,sample,scale,scale_note,score,score_staff,sound,staff,bar,staff_bar,voice,bar_voice RESTART IDENTITY CASCADE;\""'
+       docker exec -it `docker ps | grep postgres | cut -d" " -f 1` bash -c "psql -U music_pattern music_pattern -c \"TRUNCATE \\\"user\\\",chord,chord_note,harmony,melody,note,pitch,rhythm,role,sample,scale,scale_note,score,score_instrument,score_staff,sound,staff,bar,staff_bar,voice,bar_voice RESTART IDENTITY CASCADE;\""'
 elif [[ "$CMD" == "reset-all-storage" ]]; then
 	RUN='sudo rm -rf $ROOT_PATH/flask/static/object_store_data;'
 elif [[ "$CMD" == "test-backend" ]]; then
